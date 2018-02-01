@@ -1,0 +1,14 @@
+Report Binary Search 
+
+The first step that we have done is try the search with the default value and it works. But when we try it with values other than 4, the search was not working. So we started the debugging process considering the above mentioned problem on our source code. We give much emphasis on the following conditions on the code.
+1. While loop
+   We suspect the while condition that can compare the left and right may not work but it works as intended.
+2. If condition (Line 20, 22, 24)
+   We dive in to the while loop and checked the methods enter if condition but it works as intended.
+
+3. If condition (line 35)
+   We also suspect the if condition may not work but we checked and it works as intended. 
+
+4. We checked the values of the condition and the upper bound isn't smaller than the value  itself or condition must be (array[index] > value). BUG FOUND
+
+Finally we changed the code and tested if it works for all values in the array and it works correctly. 
