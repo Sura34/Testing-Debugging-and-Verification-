@@ -1,0 +1,61 @@
+﻿addWorkingPeriod
+
+Input space: Employee != null or Employeee (a,...z, ä, ö, å),  0 <= starttime <= endtime < size 
+
+
+Partion #1: starttime < 0 (or: "starttime" in {MIN_INT, .... , -1})
+	test_add_part1: input: "starttime = -5", expected: addWorkingPeriod() = false
+Partion #3: starttime > endtime (or: "starttime" in {endtime, .... , MAX_INT})
+	test_add_part3: input: "starttime = 7, endTime = 4" expected: addWorkingPeriod() = false
+Partion #2: endtime >= size (or: "endtime" in {size, .... , MAX_INT})
+	test_add_part2: input: "scheduleSize=10, endtime=14" expected: addWorkingPeriod() = false
+Partion #4: workingEmployees().length == requiredNumber (or: nemployee = 0)
+	test_add_part4: input: "setRequiredNumber(0, 0, 2), starttime = 0, endtime = 2" expected: addWorkingPeriod() = false
+Partion #6: workingEmployees().contains(employee) (or: If the emplyee is alreay contained in the period)
+	test_add_part6: input: "employee='A', starttime = 0, endtime = 2, workingEmployees(0,2).contains('A')" expected: addWorkingPeriod() = false
+
+// Did not include this exception in my source code 
+Partion #5: Partion1-5 false/otherwise 
+	test_add_part5: input: "employee='A', starttime = 0, endtime = 2" expected: addWorkingPeriod() = true
+
+
+
+Border cases:
+	test_add_border1: input: "starttime = 0", expected: "addWorkingPeriod() = "True""
+	test_add_border2: input: "starttime = -1", expected: "addWorkingPeriod() = "False""
+	test_add_border3: input: "endtime = size-1", expected: "addWorkingPeriod() = "True""
+	test_add_border4: input: "endtime = size", expected: "addWorkingPeriod() = "False""
+	test_add_border5: input: "starttime = endtime", expected: "addWorkingPeriod() = "True""
+	test_add_border6: input: "starttime = endtime + 1", expected: "addWorkingPeriod() = "False""
+	test_add_border7: input: "workingEmployees().length = requiredNumber - 1", expected: "addWorkingPeriod() = "True""
+	test_add_border8: input: "workingEmployees().length = requiredNumber", expected: "addWorkingPeriod() = False"
+	test_add_border9: input: "workingEmployees(0, 4).contains('S') employee = 'S' starttime = 4, endTime = 6", expected: "addWorkingPeriod() = "True"" 
+	test_add_border10: input: "workingEmployees(0, 5).contains('S') employee = 'S' starttime = 1, endTime = 4", expected: "addWorkingPeriod() = "False""
+           ^border10 ska krocka för att det redan finns en employee med samma namn den tiden
+
+ Found bugs: StartTimeBiggerThanEndTime("Surafel",4,2) returns true even is the start time is greater than the endtime.          
+
+Case B - workingEmployees
+
+
+
+Input Space: starttime >= 0 and endtime < size (or: "starttime" in {0,....,MAX_INT} and "endtime" in {MIN_INT,....,size})
+
+Partition #1: starttime > endtime  (or: "starttime" in {endtime - 1 , .... , MAX_INT})
+	test_work_part1: input: "starttime = 1, endtime = 0", expected: "workingEmployees() = NULL"
+Partition #2: startime <= endtime (or: "starttime" in {MIN_INT, .... , endtime})
+	test_work_part2: input: "starttime = 1, endtime = 3, expected: "workingEmployees() = List of Employees"	
+
+		
+
+
+Border cases: 
+	workingPeriod = wPeriod
+	Employee = E1
+	test_work_border1 input: "E1.starttime = wPeriod.starttime, E1.endtime = wPeriod.endtime", Expected "workingEmployees() = {Employee}
+	test_work_border2: input: "E1.starttime = wPeriod.endtime", Expected "workingEmployees() = NULL
+	test_work_border3: input: "E1.endtime = wPeriod.startime", Expected "workingEmployees() = NULL
+
+Found bugs: Partition #1, starttime = 4, endtime = 1, starttime > endtime, therefore should result in and empty array.
+	   test_work_border2, the working period is before the start time of employee and there is no common hour between both hours and it should return null logically but it isnt. 
+	   test_work_border3, the working period is after the end time of employee and there is no common hour between both hours and it should return null logically but it isnt.
